@@ -12,30 +12,24 @@
 class Solution {
 public:
 
-    void getinorder(vector<int>& inorder, TreeNode* root){
-        if(root == NULL) return;
+    TreeNode *first, *prev, *second;
+    
+    void inorder(TreeNode* root) {
+        if(!root) return;
 
-        getinorder(inorder, root -> left);
-        inorder.push_back(root -> val);
-        getinorder(inorder, root -> right);
-    }
+        inorder(root -> left);
 
-    void correctTree(int& index, vector<int>& correctOrder, TreeNode* root) {
-        if(root == NULL) return;
+        if(prev && prev -> val > root -> val) {
+            if(!first) first = prev;
+            second = root;
+        }
+        prev = root;
 
-        correctTree(index, correctOrder, root -> left);
-        root -> val = correctOrder[index++];
-        correctTree(index, correctOrder, root -> right);
+        inorder(root -> right);
     }
 
     void recoverTree(TreeNode* root) {
-        vector<int> inorder;
-        getinorder(inorder, root);
-
-        vector<int> correctOrder = inorder;
-        sort(correctOrder.begin(), correctOrder.end());
-
-        int index = 0;
-        correctTree(index, correctOrder, root);
+        inorder(root);
+        swap(first -> val, second -> val);
     }
 };
