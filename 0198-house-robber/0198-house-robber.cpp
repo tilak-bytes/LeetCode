@@ -39,6 +39,24 @@ private:
         return dp[n - 1];
     }
 
+    int solveSO(int idx, vector<int>& nums) {
+        int n = nums.size();
+        int prev = 0;
+        int curr = nums[0];
+
+        for(int i = 1 ; i < n ; i++) {
+
+            int pick = nums[i];
+            if(i > 1) pick += prev;
+            int notPick = 0 + curr;
+
+            int next = max(pick, notPick);
+            prev = curr;
+            curr = next;
+        }
+        return curr;
+    }
+
 public:
     int rob(vector<int>& nums) {
         int n = nums.size();
@@ -48,6 +66,8 @@ public:
         // dp[0] = nums[0];
         // return solveMem(n - 1, nums, dp);
 
-        return solveTab(0, nums);
+        //return solveTab(0, nums);
+
+        return solveSO(0, nums);
     }
 };
