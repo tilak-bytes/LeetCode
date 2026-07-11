@@ -36,7 +36,25 @@ private:
         }
         return dp[0][0];
     }
-    
+
+    int solveSO(int m, vector<vector<int>>& triangle) {
+        vector<int>front(m, -1);
+
+        for(int i = 0 ; i < m ; i++) 
+            front[i] = triangle[m - 1][i];
+
+        for(int i = m - 2 ; i >= 0 ; i--) {
+            vector<int> curr(m, -1);
+            for(int j = i ; j >= 0 ; j--) {
+                int down = front[j];
+                int right = front[j + 1];
+
+                curr[j] = triangle[i][j] + min(down, right);
+            }
+            front = curr;
+        }
+        return front[0];
+    }
 public:
     int minimumTotal(vector<vector<int>>& triangle) {
         int m = triangle.size();
@@ -45,6 +63,8 @@ public:
         //vector<vector<int>> dp(m, vector<int>(m, -1));
         //return solveMem(0, 0, m, triangle, dp);
 
-        return solveTab(m, triangle);
+        //return solveTab(m, triangle);
+
+        return solveSO (m, triangle);
     }
 };
