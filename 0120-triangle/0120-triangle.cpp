@@ -36,6 +36,7 @@ private:
         }
         return dp[0][0];
     }
+    
 public:
     int minimumTotal(vector<vector<int>>& triangle) {
         int m = triangle.size();
