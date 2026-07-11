@@ -51,6 +51,28 @@ private:
         return dp[m - 1][n - 1];
     }
 
+    int solveSO(int m, int n, vector<vector<int>>& grid) {
+        vector<int> prev(n, 0);
+
+        for(int i = 0; i < m; i++) {
+            vector<int> curr(n, 0);
+            for(int j = 0; j < n; j++) {
+                if(i == 0 && j == 0) {
+                    curr[j] = grid[i][j];
+                    continue;
+                }
+
+                int up = (i > 0) ? prev[j] : INT_MAX;
+                int left = (j > 0) ? curr[j - 1] : INT_MAX;
+
+                curr[j] = grid[i][j] + min(up, left);
+            }
+            prev = curr;
+        }
+
+        return prev[n - 1];
+    }
+
 public:
     int minPathSum(vector<vector<int>>& grid) {
         int m  = grid.size();
@@ -62,6 +84,8 @@ public:
         //vector<vector<int>> dp(m, vector<int>(n, -1));
         //return solveMem(m - 1, n - 1, grid, dp);
 
-        return solveTab(m, n, grid);
+        //return solveTab(m, n, grid);
+
+        return solveSO(m, n, grid);
     }
 };
