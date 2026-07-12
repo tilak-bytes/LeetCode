@@ -95,11 +95,11 @@ public:
 
         // return solveRec(n - 1, nums, target);
 
-        vector<vector<int>> dp(n, vector<int>(target + 1, -1));
-        return solveMem(n - 1, nums, target, dp);
+        // vector<vector<int>> dp(n, vector<int>(target + 1, -1));
+        // return solveMem(n - 1, nums, target, dp);
 
         // return solveTab(nums, target);
 
-        // return solveSO(nums, target);
+        return solveSO(nums, target);
     }
 };
