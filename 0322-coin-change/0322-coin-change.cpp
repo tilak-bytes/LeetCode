@@ -34,13 +34,30 @@ private:
         return dp[amount] = minCoins;
     }
 
+    int solveTab(vector<int>& coins, int amount) {
+        vector<int> dp(amount + 1, INT_MAX);
+        dp[0] = 0;
+
+        for (int amt = 1; amt <= amount; amt++) {
+            for (int i = 0; i < coins.size(); i++) {
+                if (amt - coins[i] >= 0 && dp[amt - coins[i]] != INT_MAX) {
+                    dp[amt] = min(dp[amt], dp[amt - coins[i]] + 1);
+                }
+            }
+        }
+        return dp[amount];
+    }
+
 public:
     int coinChange(vector<int>& coins, int amount) {
         // int ans = solveRec(coins, amount);
         // return (ans == INT_MAX) ? -1 : ans;
 
-        vector<int> dp(amount + 1, -1);
-        int ans = solveMem(coins, amount, dp);
+        // vector<int> dp(amount + 1, -1);
+        // int ans = solveMem(coins, amount, dp);
+        // return (ans == INT_MAX) ? -1 : ans;
+
+        int ans = solveTab(coins, amount);
         return (ans == INT_MAX) ? -1 : ans;
     }
 };
