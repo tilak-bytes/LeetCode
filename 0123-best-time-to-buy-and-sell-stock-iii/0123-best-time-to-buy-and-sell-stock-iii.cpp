@@ -98,9 +98,9 @@ public:
         // return solveMem(0, 1, 2, prices, dp);
 
         // 3. Tabulation
-        return solveTab(prices);
+        // return solveTab(prices);
 
         // 4. Space Optimized
-        // return solveSO(prices);
+        return solveSO(prices);
     }
 };
