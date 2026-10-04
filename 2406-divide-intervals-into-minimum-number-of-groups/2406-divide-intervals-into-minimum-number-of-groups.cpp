@@ -1,29 +1,23 @@
 class Solution {
 public:
     int minGroups(vector<vector<int>>& intervals) {
-        int n = intervals.size();
-        vector<int> st(n), en(n);
+        vector<pair<int, int>> vec;
 
-        for (int i = 0; i < n; i++) {
-            st[i] = intervals[i][0];
-            en[i] = intervals[i][1];
+        for(auto it : intervals) {
+            vec.push_back({it[0], 0});
+            vec.push_back({it[1], 1});
         }
-        sort(st.begin(), st.end());
-        sort(en.begin(), en.end());
 
-        int groups = 0, ans = 0;
-        int i = 0, j = 0;
-        while(i < n && j < n) {
-            if(st[i] <= en[j]) {
+        sort(vec.begin(), vec.end());
+
+        int groups = 0, maxGroups = 0;
+        for(auto it : vec) {
+            if(it.second == 0) {
                 groups++;
-                ans = max(ans, groups);
-                i++;
+                maxGroups = max(maxGroups, groups);
             }
-            else {
-                groups--;
-                j++;
-            }
+            else groups--;
         }
-        return ans;
+        return maxGroups;
     }
 };
