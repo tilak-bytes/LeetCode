@@ -55,10 +55,8 @@ class Solution {
                 x.add(st);
             }
         }
-        List<String> xx = new ArrayList<>();
-        for(String str : x){
-            xx.add(str);
-        }
+        List<String> xx = new ArrayList<>(x);
+
         return xx;
     }
 }
