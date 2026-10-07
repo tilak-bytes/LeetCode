@@ -1,4 +1,5 @@
 class Solution {
+    int max = 0;
     public boolean valid(String s){
         int x = 0;
         int i = 0;
@@ -25,6 +26,7 @@ class Solution {
     public void helper(String s, int i, String a, List<String> ans){
         if(i >= s.length()){
             if(valid(a)){
+                max = Math.max(max, a.length());
                 ans.add(a);
             }
             return;
@@ -46,10 +48,6 @@ class Solution {
         List<String> ans = new ArrayList<>();
         helper(s, 0, "", ans);
         Set<String> x = new HashSet<>();
-        int max = 0;
-        for(String st : ans){
-            max = Math.max(st.length(), max);
-        }
         for(String st : ans){
             if(st.length() == max){
                 x.add(st);
